@@ -1,4 +1,4 @@
-﻿FROM python:3.10-slim  # Explicitly use Python 3.10
+FROM python:3.10-slim  # Explicitly use Python 3.10
 
 # Install system dependencies
 RUN apt-get update && \
@@ -17,3 +17,4 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:$PORT", "app:app"]
+
