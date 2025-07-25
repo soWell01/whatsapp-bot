@@ -1,4 +1,4 @@
-﻿FROM python:3.10-slim
+﻿FROM python:3.10-slim  # Explicitly use Python 3.10
 
 # Install system dependencies
 RUN apt-get update && \
@@ -9,9 +9,10 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-# Install Python dependencies
+# Upgrade pip first
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
