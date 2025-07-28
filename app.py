@@ -9,6 +9,50 @@ import os, json, base64
 
 app = Flask(__name__)
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def load_google_creds():
+    google_creds = os.getenv("GOOGLE_CREDS")
+    logger.info(f"GOOGLE_CREDS length: {len(google_creds) if google_creds else 0}")
+    
+    if not google_creds:
+        raise ValueError("GOOGLE_CREDS environment variable is missing")
+
+    try:
+        # Add padding if needed
+        pad = len(google_creds) % 4
+        if pad:
+            google_creds += '=' * (4 - pad)
+            logger.info("Added base64 padding")
+        
+        logger.info("Attempting to decode credentials...")
+        decoded = base64.b64decode(google_creds)
+        logger.info(f"Decoded length: {len(decoded)}")
+        
+        creds_json = decoded.decode('utf-8')
+        logger.info("Successfully decoded credentials")
+        return json.loads(creds_json)
+        
+    except Exception as e:
+        logger.error(f"Credential decoding failed: {str(e)}")
+        raise
+
+try:
+    scope = ["https://spreadsheets.google.com/feeds", 
+            "https://www.googleapis.com/auth/drive"]
+    creds_dict = load_google_creds()
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+    logger.info("Google Sheets authentication successful")
+except Exception as e:
+    logger.error(f"Initialization failed: {str(e)}")
+    raise
+
+@app.route('/health')
+def health():
+    return "OK", 200
+
 
 # Google Sheets Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
