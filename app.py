@@ -53,6 +53,35 @@ except Exception as e:
 def health():
     return "OK", 200
 
+@app.route('/debug')
+def debug():
+    import sys, traceback
+    try:
+        # Test credentials
+        creds = load_google_creds()
+        
+        # Test Google Sheets connection
+        client = gspread.authorize(creds)
+        sheet = client.open("WhatsAppOrders").sheet1
+        
+        return {
+            "status": "healthy",
+            "python_version": sys.version,
+            "credentials": {
+                "client_email": creds.get("client_email"),
+                "valid": True
+            },
+            "sheets": {
+                "connected": True,
+                "first_row": sheet.row_values(1) if sheet else None
+            }
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc(),
+            "env": dict(os.environ)
+        }, 500
 
 # Google Sheets Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
