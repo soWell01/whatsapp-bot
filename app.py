@@ -5,15 +5,23 @@ from oauth2client.service_account import ServiceAccountCredentials
 import os
 import ipaddress
 import json
+import os, json, base64
 
 app = Flask(__name__)
+
 
 # Google Sheets Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 google_creds = os.getenv("GOOGLE_CREDS")
-creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(google_creds), scope)
-client = gspread.authorize(creds)
-sheet = client.open("WhatsAppOrders").sheet1  # Name of your Google Sheet
+
+if not google_creds:
+    raise ValueError("GOOGLE_CREDS environment variable is missing")
+
+try:
+    creds_dict = json.loads(base64.b64decode(google_creds).decode('utf-8'))
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+except Exception as e:
+    raise ValueError(f"Invalid GOOGLE_CREDS: {str(e)}")
 
 # Product Menu (customize this!)
 products = {
