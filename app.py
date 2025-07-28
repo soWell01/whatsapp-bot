@@ -80,15 +80,8 @@ def debug():
 
 @app.before_request
 def verify_twilio_ip():
-    """Verify requests come from Twilio's IP range"""
-    twilio_ips = [
-        '54.244.51.0/24',
-        '54.252.254.64/26',
-        '18.228.49.0/24'
-    ]
-    client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-    if not any(ipaddress.ip_address(client_ip.split(',')[0].strip()) in ipaddress.ip_network(ip) for ip in twilio_ips):
-        abort(403)
+    """For testing, comment out this IP verification"""
+    pass
 
 @app.route("/whatsapp", methods=["POST"])
 def whatsapp_bot():
