@@ -109,7 +109,7 @@ def whatsapp_bot():
         resposta.message("🍹 *Bem-vindo à Frozy Refrigerantes!* 🍹\nAqui está nosso catálogo:")
         
         # Envia imagem do produto principal (ex: logo Frozy)
-        resposta.message().media("https://drive.google.com/file/d/1ft6koTT-9PaSN8xz4XRWxKzlqrxAtbuR/view?usp=drive_link")  # Substitua pela URL
+        resposta.message().media("https://exemplo.com/frozy-welcome.jpg")  # Substitua pela URL
         
         # Lista produtos
         menu = "📋 *Escolha um produto:*\n"
