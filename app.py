@@ -46,49 +46,49 @@ produtos = {
         "preco_caixa": 245,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás", "Manga", "Maçã", "Maracujá"],
-        "imagem": " https://drive.google.com/uc?export=view&id=1O_SpSh133QV7dhdGALnibLsYdh-zNY6d"  
+        "imagem": "https://imgur.com/CgF6HnB"  
     },
     "2": {
         "nome": "Frozy Energy Pet 350ml",
         "preco_caixa": 340,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],  
-        "imagem": "https://drive.google.com/uc?export=view&id=1HtK7WPGtT1BIDkQTbiKHmjpIf9em_Wn6" 
+        "imagem": "https://imgur.com/motgvFV" 
     },
     "3": {
         "nome": "Frozy 2l",
         "preco_caixa": 290,
         "unidades_por_caixa": 6,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"], 
-        "imagem": "https://drive.google.com/uc?export=view&id=10shJM3v_XRgGXCAbXJEHg_Mvoo5BQd00"  
+        "imagem": "https://imgur.com/NvJKzcn"  
     },
     "4": {
         "nome": "Truly Juice 300 ml",
         "preco_caixa": 140,
         "unidades_por_caixa": 12,
         "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"], 
-        "imagem": "https://drive.google.com/uc?export=view&id=1M9onuFaEvF2DDIzuZtMfD9gPmDbcEOfA"
+        "imagem": "https://imgur.com/82Jhe9D"
     },
     "5": {
         "nome": "Frozy Lata 330ml",
         "preco_caixa": 440,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva" "Coco Ananás"],
-        "imagem": "https://drive.google.com/uc?export=view&id=1GLm--MmLtm4dbJXWQLwrh5D5uIZ82f3A" 
+        "imagem": "https://imgur.com/zOTZ8XA" 
     },
     "6": {
         "nome": "Frozy Energy 300ml",
         "preco_caixa": 490,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],      
-        "imagem": "https://drive.google.com/uc?export=view&id=11c2KebCWsAt0aYpmzaiFhjAUvGT4MRKc"
+        "imagem": "https://imgur.com/SVC7cXR"
     },
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"], 
-        "imagem": "https://drive.google.com/uc?export=view&id=1wEYg1hqQYQQ-9JCLGQxk-l6JGrLuJA-9" 
+        "imagem": "https://imgur.com/O0ErLjb" 
     }
 }
 
@@ -109,7 +109,7 @@ def whatsapp_bot():
         resposta.message("🍹 *Bem-vindo à Frozy Refrigerantes!* 🍹\nAqui está nosso catálogo:")
         
         # Envia imagem do produto principal (ex: logo Frozy)
-        resposta.message().media("https://drive.google.com/uc?export=view&id=1ft6koTT-9PaSN8xz4XRWxKzlqrxAtbuR")  
+        resposta.message().media("https://imgur.com/OPzbS2D")  
         
         # Lista produtos
         menu = "📋 *Escolha um produto:*\n"
