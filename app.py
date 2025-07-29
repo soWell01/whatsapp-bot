@@ -7,6 +7,15 @@ from twilio.twiml.messaging_response import MessagingResponse
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+from datetime import datetime, timedelta
+
+# No início da função whatsapp_bot():
+now = datetime.now()
+# Remove sessões com mais de 1 hora
+for sender in list(user_sessions.keys()):
+    if now - user_sessions[sender].get("last_activity", now) > timedelta(hours=1):
+        del user_sessions[sender]
+
 app = Flask(__name__)
 
 # Configuração de Logging
@@ -39,29 +48,56 @@ except Exception as e:
     logger.error(f"Falha na inicialização: {str(e)}")
     raise
 
-# Catálogo de Produtos (Frozy + Truly Juice)
+# Catálogo de Produtos (Frozy + Truly Juice)    
 produtos = {
     "1": {
         "nome": "Frozy Pet 350ml",
         "preco_caixa": 245,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás", "Manga", "Maçã", "Maracujá"],
-        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
+        "imagem": "https://i.imgur.com/CgF6HnB.gif"  
     },
     "2": {
         "nome": "Frozy Energy Pet 350ml",
         "preco_caixa": 340,
         "unidades_por_caixa": 24,
-        "sabores": ["Energético"],
-        "imagem": "https://exemplo.com/frozy-energy-pet.jpg"
+        "sabores": ["Energético"],  
+        "imagem": "https://i.imgur.com/motgvFV.gif" 
     },
-    # ... (Adicione os outros produtos seguindo o mesmo padrão)
+    "3": {
+        "nome": "Frozy 2l",
+        "preco_caixa": 290,
+        "unidades_por_caixa": 6,
+        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"], 
+        "imagem": "https://i.imgur.com/NvJKzcn.gif" 
+    },
+    "4": {
+        "nome": "Truly Juice 300 ml",
+        "preco_caixa": 140,
+        "unidades_por_caixa": 12,
+        "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"], 
+        "imagem": "https://i.imgur.com/82Jhe9D.gif"
+    },
+    "5": {
+        "nome": "Frozy Lata 330ml",
+        "preco_caixa": 440,
+        "unidades_por_caixa": 24,
+        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás"],
+        "imagem": "https://i.imgur.com/zOTZ8XA.gif" 
+    },
+    "6": {
+        "nome": "Frozy Energy 300ml",
+        "preco_caixa": 490,
+        "unidades_por_caixa": 24,
+        "sabores": ["Energético"],      
+        "imagem": "https://i.imgur.com/SVC7cXR.gif"
+    },
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
         "unidades_por_caixa": 24,
-        "sabores": ["Energético"],
-        "imagem": "https://exemplo.com/frozy-energy-500ml.jpg"
+        "sabores": ["Energético"], 
+        "imagem": "https://i.imgur.com/O0ErLjb.gif" 
     }
 }
 
@@ -82,7 +118,7 @@ def whatsapp_bot():
         resposta.message("🍹 *Bem-vindo à Frozy Refrigerantes!* 🍹\nAqui está nosso catálogo:")
         
         # Envia imagem do produto principal (ex: logo Frozy)
-        resposta.message().media("https://exemplo.com/frozy-welcome.jpg")  # Substitua pela URL
+        resposta.message().media("https://i.imgur.com/OPzbS2D.jpeg")  
         
         # Lista produtos
         menu = "📋 *Escolha um produto:*\n"
