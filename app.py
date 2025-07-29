@@ -55,34 +55,7 @@ produtos = {
         "sabores": ["Energético"],
         "imagem": "https://exemplo.com/frozy-energy-pet.jpg"
     },
-    "3": {
-        "nome": "Frozy 2l",
-        "preco_caixa": 290,
-        "unidades_por_caixa": 6,
-        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"],
-        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
-    },
-    "4": {
-        "nome": "Truly Juice 300 ml",
-        "preco_caixa": 140,
-        "unidades_por_caixa": 12,
-        "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"],
-        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
-    },
-    "5": {
-        "nome": "Frozy Lata 330ml",
-        "preco_caixa": 440,
-        "unidades_por_caixa": 24,
-        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva" "Coco Ananás"],
-        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
-    },
-    "6": {
-        "nome": "Frozy Energy 300ml",
-        "preco_caixa": 490,
-        "unidades_por_caixa": 24,
-        "sabores": ["Energético"],
-        "imagem": "https://exemplo.com/frozy-energy-500ml.jpg"
-    },
+    # ... (Adicione os outros produtos seguindo o mesmo padrão)
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
