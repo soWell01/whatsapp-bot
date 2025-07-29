@@ -39,56 +39,56 @@ except Exception as e:
     logger.error(f"Falha na inicialização: {str(e)}")
     raise
 
-# Catálogo de Produtos (Frozy + Truly Juice)    
+# Catálogo de Produtos (Frozy + Truly Juice)
 produtos = {
     "1": {
         "nome": "Frozy Pet 350ml",
         "preco_caixa": 245,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás", "Manga", "Maçã", "Maracujá"],
-        "imagem": "https://imgur.com/CgF6HnB"  
+        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
     },
     "2": {
         "nome": "Frozy Energy Pet 350ml",
         "preco_caixa": 340,
         "unidades_por_caixa": 24,
-        "sabores": ["Energético"],  
-        "imagem": "https://imgur.com/motgvFV" 
+        "sabores": ["Energético"],
+        "imagem": "https://exemplo.com/frozy-energy-pet.jpg"
     },
     "3": {
         "nome": "Frozy 2l",
         "preco_caixa": 290,
         "unidades_por_caixa": 6,
-        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"], 
-        "imagem": "https://imgur.com/NvJKzcn"  
+        "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"],
+        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
     },
     "4": {
         "nome": "Truly Juice 300 ml",
         "preco_caixa": 140,
         "unidades_por_caixa": 12,
-        "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"], 
-        "imagem": "https://imgur.com/82Jhe9D"
+        "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"],
+        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
     },
     "5": {
         "nome": "Frozy Lata 330ml",
         "preco_caixa": 440,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva" "Coco Ananás"],
-        "imagem": "https://imgur.com/zOTZ8XA" 
+        "imagem": "https://exemplo.com/frozy-pet-350ml.jpg"  # Substitua pela URL real
     },
     "6": {
         "nome": "Frozy Energy 300ml",
         "preco_caixa": 490,
         "unidades_por_caixa": 24,
-        "sabores": ["Energético"],      
-        "imagem": "https://imgur.com/SVC7cXR"
+        "sabores": ["Energético"],
+        "imagem": "https://exemplo.com/frozy-energy-500ml.jpg"
     },
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
         "unidades_por_caixa": 24,
-        "sabores": ["Energético"], 
-        "imagem": "https://imgur.com/O0ErLjb" 
+        "sabores": ["Energético"],
+        "imagem": "https://exemplo.com/frozy-energy-500ml.jpg"
     }
 }
 
@@ -109,7 +109,7 @@ def whatsapp_bot():
         resposta.message("🍹 *Bem-vindo à Frozy Refrigerantes!* 🍹\nAqui está nosso catálogo:")
         
         # Envia imagem do produto principal (ex: logo Frozy)
-        resposta.message().media("https://imgur.com/OPzbS2D")  
+        resposta.message().media("https://drive.google.com/file/d/1ft6koTT-9PaSN8xz4XRWxKzlqrxAtbuR/view?usp=drive_link")  # Substitua pela URL
         
         # Lista produtos
         menu = "📋 *Escolha um produto:*\n"
