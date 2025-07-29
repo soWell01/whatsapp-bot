@@ -7,15 +7,6 @@ from twilio.twiml.messaging_response import MessagingResponse
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-from datetime import datetime, timedelta
-
-# No início da função whatsapp_bot():
-now = datetime.now()
-# Remove sessões com mais de 1 hora
-for sender in list(user_sessions.keys()):
-    if now - user_sessions[sender].get("last_activity", now) > timedelta(hours=1):
-        del user_sessions[sender]
-
 app = Flask(__name__)
 
 # Configuração de Logging
