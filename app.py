@@ -46,49 +46,49 @@ produtos = {
         "preco_caixa": 245,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás", "Manga", "Maçã", "Maracujá"],
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861661/Frozy_pet_350ml_ofni41.gif"  
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Pet_350ml_pxo3xs.jpg"  
     },
     "2": {
         "nome": "Frozy Energy Pet 350ml",
         "preco_caixa": 340,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],  
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861660/Frozy_Energy_Pet_350ml_huswtb.gif" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_Pet_350ml_zrohbs.jpg" 
     },
     "3": {
         "nome": "Frozy 2l",
         "preco_caixa": 290,
         "unidades_por_caixa": 6,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861660/Frozy_2l_hna5qu.gif" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_2l_klkqzr.jpg" 
     },
     "4": {
         "nome": "Truly Juice 300 ml",
         "preco_caixa": 140,
         "unidades_por_caixa": 12,
         "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861660/Truly_Juice_300_ml_avatff.gif"
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Truly_Juice_300_ml_dc6mae.jpg"
     },
     "5": {
         "nome": "Frozy Lata 330ml",
         "preco_caixa": 440,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás"],
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861659/Frozy_Lata_330ml_r7o956.gif" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Lata_330ml_ktvsci.jpg" 
     },
     "6": {
         "nome": "Frozy Energy 300ml",
         "preco_caixa": 490,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],      
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861659/Frozy_energetico_Lata_300ml_amlhtj.gif"
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_300ml_xol7ej.jpg"
     },
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861660/Frozy_Energy_500ml_mrqvah.gif" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_500ml_ihcc6p.jpg" 
     }
 }
 
