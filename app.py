@@ -97,6 +97,14 @@ user_sessions = {}
 
 @app.route('/whatsapp', methods=['POST'])
 def whatsapp_bot():
+    # Verifica se a Twilio está respondendo
+    if os.getenv("TWILIO_STATUS") == "LIMIT_EXCEEDED":
+        resp = MessagingResponse()
+        resp.message("⚠️ Nosso sistema está em manutenção. Por favor, tente novamente mais tarde.")
+        return str(resp)
+
+@app.route('/whatsapp', methods=['POST'])
+def whatsapp_bot():
     mensagem = request.values.get("Body", "").strip().lower()
     remetente = request.values.get("From", "")
     resposta = MessagingResponse()
