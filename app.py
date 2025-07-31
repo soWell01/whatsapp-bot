@@ -46,49 +46,63 @@ produtos = {
         "preco_caixa": 245,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás", "Manga", "Maçã", "Maracujá"],
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Pet_350ml_pxo3xs.jpg"  
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753950420/Frozy_Pet_350ml_jtqsts.jpg"  
     },
     "2": {
         "nome": "Frozy Energy Pet 350ml",
         "preco_caixa": 340,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],  
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_Pet_350ml_zrohbs.jpg" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753950152/Frozy_Energy_Pet_350ml_gerkcz.jpg" 
     },
     "3": {
         "nome": "Frozy 2l",
         "preco_caixa": 290,
         "unidades_por_caixa": 6,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Uva", "Coco Ananás", "Manga"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_2l_klkqzr.jpg" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753950420/Frozy_2l_nd1mlv.jpg" 
     },
     "4": {
         "nome": "Truly Juice 300 ml",
         "preco_caixa": 140,
         "unidades_por_caixa": 12,
         "sabores": ["Laranja", "Mistura Bagas", "Manga", "Guava", "Tropical", "Ananás"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Truly_Juice_300_ml_dc6mae.jpg"
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949872/Truly_Juice_300_ml_deslwp.jpg"
     },
     "5": {
         "nome": "Frozy Lata 330ml",
         "preco_caixa": 440,
         "unidades_por_caixa": 24,
         "sabores": ["Laranja", "Framboesa", "Limão", "Cola", "Lichia", "Uva", "Coco Ananás"],
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Lata_330ml_ktvsci.jpg" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949871/Frozy_Lata_330ml_seqipb.jpg" 
     },
     "6": {
         "nome": "Frozy Energy 300ml",
         "preco_caixa": 490,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"],      
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_300ml_xol7ej.jpg"
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949871/Frozy_Energy_300ml_xinmmi.jpg"
     },
     "7": {
         "nome": "Frozy Energy 500ml",
         "preco_caixa": 540,
         "unidades_por_caixa": 24,
         "sabores": ["Energético"], 
-        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753862626/Frozy_Energy_500ml_ihcc6p.jpg" 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753950152/Frozy_Energy_500ml_zautku.jpg" 
+    },
+    "8": {
+        "nome": "Frozy Dry Lemon 300ml",
+        "preco_caixa": 630,
+        "unidades_por_caixa": 24,
+        "sabores": ["Normal"], 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949962/Frozy_Dry_Lemon_300ml_eskw5c.png" 
+    },
+    "9": {
+        "nome": "Frozy Água Tônica 300ml",
+        "preco_caixa": 630,
+        "unidades_por_caixa": 24,
+        "sabores": ["Normal"], 
+        "imagem": "https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949961/Frozy_%C3%81gua_T%C3%B4nica_300ml_i5fr5r.jpg" 
     }
 }
 
@@ -109,16 +123,19 @@ def whatsapp_bot():
 
     # Se é a primeira interação, envia mensagem de boas-vindas + catálogo
     if remetente not in user_sessions:
-        user_sessions[remetente] = {"step": "inicio", "pedidos": []}
-        
-        # Mensagem de boas-vindas com imagem (opcional)
-        resposta.message("🍹 *Bem-vindo à Frozy Refrigerantes!* 🍹\nAqui está nosso catálogo:")
+        user_sessions[remetente] = {"step": "inicio", "pedidos": [], "produto_atual": None,"sabores_adicionados": []}
         
         # Envia imagem do produto principal (ex: logo Frozy)
-        resposta.message().media("https://res.cloudinary.com/dsn5zklgs/image/upload/v1753861660/entrada_mccxmf.jpg")  
+        resposta.message().media("https://res.cloudinary.com/dsn5zklgs/image/upload/v1753949962/Todos_produtos_czuvkd.jpg")  
+        
+        # Mensagem de boas-vindas com imagem (opcional)
+        resposta.message(
+            "🍹 *Bem-vindo à aplicação de requisição de produtos da Frozy!* �\n"
+            "📄 Catálogo completo: [Baixe aqui](https://drive.google.com/file/d/14yIAiKxYmhLFnD8Old84L0V9iWPw2bNP/view?usp=sharing)\n\n"
+        )
         
         # Lista produtos
-        menu = "📋 *Escolha um produto:*\n"
+        menu = "📋 *Para escolher um produto digite o seu respectivo número:*\n"
         for codigo, produto in produtos.items():
             menu += f"{codigo}. {produto['nome']} - {produto['preco_caixa']} MZN/caixa\n"
         resposta.message(menu)
@@ -130,51 +147,96 @@ def whatsapp_bot():
     if sessao["step"] == "inicio":
         if mensagem in produtos:
             sessao["produto_atual"] = mensagem
+            sessao["sabores_adicionados"] = []
             sessao["step"] = "escolher_sabor"
             
             # Envia imagem do produto escolhido
             resposta.message().media(produtos[mensagem]["imagem"])
             
-            # Lista sabores
-            sabores = "\n".join([f"{i+1}. {sabor}" for i, sabor in enumerate(produtos[mensagem]["sabores"])])
-            resposta.message(f"Escolha um sabor para {produtos[mensagem]['nome']}:\n{sabores}")
+           # Lista sabores disponíveis (excluindo já adicionados)
+            sabores_disponiveis = [
+                sabor for sabor in produtos[mensagem]["sabores"]
+                if sabor not in sessao["sabores_adicionados"]
+            ]
+            
+            if not sabores_disponiveis:
+                resposta.message("Todos os sabores já foram adicionados! Deseja adicionar outro produto? (sim/não)")
+                sessao["step"] = "adicionar_mais"
+            else:
+                sabores = "\n".join([f"{i+1}. {sabor}" for i, sabor in enumerate(sabores_disponiveis)])
+                resposta.message(f"Escolha um sabor para {produtos[mensagem]['nome']}:\n{sabores}")
         else:
             resposta.message("❌ Código inválido. Digite o número do produto (ex: 1).")
-    
+
     # Etapa 2: Escolha do Sabor
     elif sessao["step"] == "escolher_sabor":
         produto = produtos[sessao["produto_atual"]]
-        sabores_validos = [str(i+1) for i in range(len(produto["sabores"]))]
+        sabores_disponiveis = [
+            sabor for sabor in produto["sabores"]
+            if sabor not in sessao["sabores_adicionados"]
+        ]
         
-        if mensagem in sabores_validos:
-            sabor_escolhido = produto["sabores"][int(mensagem)-1]
-            sessao["sabor_atual"] = sabor_escolhido
-            sessao["step"] = "quantidade"
-            resposta.message(f"Quantas caixas de *{produto['nome']} ({sabor_escolhido})* você deseja?")
-        else:
-            resposta.message(f"❌ Sabor inválido. Digite um número entre 1 e {len(produto['sabores'])}.")
-    
+        try:
+            escolha = int(mensagem) - 1
+            if 0 <= escolha < len(sabores_disponiveis):
+                sabor_escolhido = sabores_disponiveis[escolha]
+                sessao["sabor_atual"] = sabor_escolhido
+                sessao["step"] = "quantidade"
+                resposta.message(f"Quantas caixas de *{produto['nome']} ({sabor_escolhido})* você deseja?")
+            else:
+                resposta.message(f"❌ Escolha inválida. Digite um número entre 1 e {len(sabores_disponiveis)}.")
+        except ValueError:
+            resposta.message("❌ Digite apenas o número do sabor.")
+
     # Etapa 3: Quantidade
     elif sessao["step"] == "quantidade":
         try:
             quantidade = int(mensagem)
-            if quantidade <= 0:
-                raise ValueError
-            
-            # Adiciona ao carrinho
-            pedido = {
-                "produto": produtos[sessao["produto_atual"]]["nome"],
-                "sabor": sessao["sabor_atual"],
-                "quantidade": quantidade,
-                "preco_unitario": produtos[sessao["produto_atual"]]["preco_caixa"]
-            }
-            sessao["pedidos"].append(pedido)
-            
-            # Pergunta se quer adicionar mais itens
-            sessao["step"] = "adicionar_mais"
-            resposta.message("✅ Pedido adicionado! Deseja adicionar outro produto? (sim/não)")
+            if quantidade > 0:
+                # Adiciona ao pedido
+                pedido = {
+                    "produto": produtos[sessao["produto_atual"]]["nome"],
+                    "sabor": sessao["sabor_atual"],
+                    "quantidade": quantidade,
+                    "preco_unitario": produtos[sessao["produto_atual"]]["preco_caixa"]
+                }
+                sessao["pedidos"].append(pedido)
+                sessao["sabores_adicionados"].append(sessao["sabor_atual"])
+                
+                # Pergunta se quer adicionar outro sabor do MESMO produto (alteração 3)
+                sabores_restantes = [
+                    sabor for sabor in produtos[sessao["produto_atual"]]["sabores"]
+                    if sabor not in sessao["sabores_adicionados"]
+                ]
+                
+                if sabores_restantes:
+                    resposta.message("✅ Adicionado! Deseja escolher outro sabor para este produto? (sim/não)")
+                    sessao["step"] = "outro_sabor"
+                else:
+                    resposta.message("✅ Todos os sabores foram adicionados! Deseja adicionar outro produto? (sim/não)")
+                    sessao["step"] = "adicionar_mais"
+            else:
+                resposta.message("❌ Digite um número maior que zero.")
         except ValueError:
             resposta.message("❌ Digite um número válido (ex: 2).")
+
+    # Nova Etapa: Adicionar outro sabor do mesmo produto (alteração 4)
+    elif sessao["step"] == "outro_sabor":
+        if mensagem == "sim":
+            sessao["step"] = "escolher_sabor"
+            
+            # Lista apenas sabores não adicionados
+            sabores_disponiveis = [
+                sabor for sabor in produtos[sessao["produto_atual"]]["sabores"]
+                if sabor not in sessao["sabores_adicionados"]
+            ]
+            sabores = "\n".join([f"{i+1}. {sabor}" for i, sabor in enumerate(sabores_disponiveis)])
+            resposta.message(f"Escolha outro sabor para {produtos[sessao['produto_atual']]['nome']}:\n{sabores}")
+        elif mensagem == "não":
+            resposta.message("Deseja adicionar outro produto? (sim/não)")
+            sessao["step"] = "adicionar_mais"
+        else:
+            resposta.message("Responda 'sim' ou 'não'.")
     
     # Etapa 4: Adicionar mais itens?
     elif sessao["step"] == "adicionar_mais":
