@@ -126,6 +126,40 @@ produtos = {
 # Sessões dos Usuários (armazena pedidos em andamento)
 user_sessions = {}
 
+# =============================================
+# FUNÇÃO DE NOTIFICAÇÃO (ADICIONE AQUI)
+# =============================================
+from twilio.rest import Client
+from datetime import datetime
+
+def notificar_responsavel(pedidos, remetente, endereco):
+    try:
+        # Configuração do cliente Twilio
+        client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
+        
+        # Formata a mensagem
+        total = sum(p["quantidade"] * p["preco_unitario"] for p in pedidos)
+        mensagem = f"🚨 *NOVO PEDIDO RECEBIDO* 🚨\n\n"
+        mensagem += f"📞 Cliente: {remetente}\n"
+        mensagem += f"📍 Endereço: {endereco}\n\n"
+        mensagem += "📦 *Itens:*\n"
+        
+        for pedido in pedidos:
+            mensagem += f"- {pedido['quantidade']}x {pedido['produto']} ({pedido['sabor']}): {pedido['quantidade'] * pedido['preco_unitario']} MZN\n"
+        
+        mensagem += f"\n💵 *Total: {total} MZN*"
+        
+        # Envia a notificação
+        message = client.messages.create(
+            body=mensagem,
+            from_='whatsapp:+14155238886',  # Seu número Twilio
+            to=f'whatsapp:{os.getenv("RESPONSAVEL_WHATSAPP")}'
+        )
+        
+        logger.info(f"Notificação enviada ao responsável. SID: {message.sid}")
+    except Exception as e:
+        logger.error(f"Falha ao enviar notificação: {str(e)}")
+
 @app.route('/whatsapp', methods=['POST'])
 def whatsapp_bot():
     # Verifica limites da Twilio
@@ -148,7 +182,7 @@ def whatsapp_bot():
         # Mensagem de boas-vindas com imagem (opcional)
         resposta.message(
             "🍹 *Bem-vindo à aplicação de requisição de produtos da Frozy!* �\n"
-            "📄 Catálogo completo: [Baixe aqui](https://drive.google.com/file/d/14yIAiKxYmhLFnD8Old84L0V9iWPw2bNP/view?usp=sharing)\n\n"
+            "📄 Catálogo completo: [Baixe aqui](https://github.com/soWell01/pdfsParaPartilha/blob/main/Act%20-%20Cata%CC%81logo%20-%20Produtos%20-%20Yaafico30072025.pdf)\n\n"
         )
         
         # Lista produtos
@@ -300,6 +334,9 @@ def whatsapp_bot():
                 os.getenv("ENVIRONMENT", "local")
             ]
             sheet.append_row(linha)
+            
+       # 2. Notifica o responsável (nova linha)
+        notificar_responsavel(sessao["pedidos"], remetente, mensagem)
         
         resposta.message("🍹 *Obrigado pelo seu pedido!* 🚀\nEstamos processando e entraremos em contato em breve.")
         del user_sessions[remetente]  # Limpa a sessão
