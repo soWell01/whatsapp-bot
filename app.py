@@ -13,13 +13,17 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Autenticação Google Sheets
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# Autenticação Google Sheets - Versão Melhorada
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
 
 def load_google_creds():
     google_creds = os.getenv("GOOGLE_CREDS")
     if not google_creds:
-        raise ValueError("Variável GOOGLE_CREDS não encontrada!")
+        logger.warning("Variável GOOGLE_CREDS não encontrada!")
+        return None
     try:
         # Corrige padding do Base64 (se necessário)
         pad = len(google_creds) % 4
@@ -28,16 +32,29 @@ def load_google_creds():
         return json.loads(decoded)
     except Exception as e:
         logger.error(f"Erro ao decodificar credenciais: {str(e)}")
-        raise
+        return None
 
 try:
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(load_google_creds(), scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("PedidosFrozy").sheet1  # Altere para o nome da sua planilha
-    logger.info("Conexão com Google Sheets OK!")
+    creds_dict = load_google_creds()
+    if creds_dict:
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+        client = gspread.authorize(creds)
+        
+        # Verifica se a planilha existe e está acessível
+        try:
+            sheet = client.open("PedidosFrozy").sheet1
+            # Testa uma escrita simples
+            sheet.append_row(["Teste", "123", "x", "1", "100", "Endereço teste", "local"])
+            logger.info("Conexão com Google Sheets OK e escrita testada!")
+        except Exception as e:
+            logger.error(f"Falha ao acessar a planilha: {str(e)}")
+            sheet = None
+    else:
+        sheet = None
+        logger.warning("Modo simulado - sem Google Sheets")
 except Exception as e:
-    logger.error(f"Falha na inicialização: {str(e)}")
-    raise
+    logger.error(f"Falha na inicialização do Google Sheets: {str(e)}")
+    sheet = None
 
 # Catálogo de Produtos (Frozy + Truly Juice)    
 produtos = {
@@ -277,8 +294,8 @@ def whatsapp_bot():
                 remetente,
                 pedido["produto"],
                 pedido["sabor"],
-                pedido["quantidade"],
-                pedido["preco_unitario"],
+                str(pedido["quantidade"]),
+                str(pedido["preco_unitario"]),
                 mensagem,  # Endereço/localização
                 os.getenv("ENVIRONMENT", "local")
             ]
