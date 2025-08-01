@@ -211,7 +211,7 @@ def whatsapp_bot():
             ]
             
             if not sabores_disponiveis:
-                resposta.message("Todos os sabores já foram adicionados! Deseja adicionar outro produto? (sim/não)")
+                resposta.message("Todos os sabores já foram adicionados! Deseja adicionar outro produto? \n 1 - sim \n 2 - não)")
                 sessao["step"] = "adicionar_mais"
             else:
                 sabores = "\n".join([f"{i+1}. {sabor}" for i, sabor in enumerate(sabores_disponiveis)])
@@ -261,10 +261,10 @@ def whatsapp_bot():
                 ]
                 
                 if sabores_restantes:
-                    resposta.message("✅ Adicionado! Deseja escolher outro sabor para este produto? (sim/não)")
+                    resposta.message("✅ Adicionado! Deseja escolher outro sabor para este produto? \n 1 - sim \n 0 - não)")
                     sessao["step"] = "outro_sabor"
                 else:
-                    resposta.message("✅ Todos os sabores foram adicionados! Deseja adicionar outro produto? (sim/não)")
+                    resposta.message("✅ Todos os sabores foram adicionados! Deseja adicionar outro produto? \n 1 - sim \n 0 - não)")
                     sessao["step"] = "adicionar_mais"
             else:
                 resposta.message("❌ Digite um número maior que zero.")
@@ -273,7 +273,7 @@ def whatsapp_bot():
 
     # Nova Etapa: Adicionar outro sabor do mesmo produto (alteração 4)
     elif sessao["step"] == "outro_sabor":
-        if mensagem == "sim":
+        if mensagem == "1":
             sessao["step"] = "escolher_sabor"
             
             # Lista apenas sabores não adicionados
@@ -283,21 +283,21 @@ def whatsapp_bot():
             ]
             sabores = "\n".join([f"{i+1}. {sabor}" for i, sabor in enumerate(sabores_disponiveis)])
             resposta.message(f"Escolha outro sabor para {produtos[sessao['produto_atual']]['nome']}:\n{sabores}")
-        elif mensagem == "não":
-            resposta.message("Deseja adicionar outro produto? (sim/não)")
+        elif mensagem == "0":
+            resposta.message("Deseja adicionar outro produto?\n 1 - sim 2 - não)")
             sessao["step"] = "adicionar_mais"
         else:
-            resposta.message("Responda 'sim' ou 'não'.")
+            resposta.message("Responda '1 - sim' ou '2 - não'.")
     
     # Etapa 4: Adicionar mais itens?
     elif sessao["step"] == "adicionar_mais":
-        if mensagem == "sim":
+        if mensagem == "1":
             sessao["step"] = "inicio"
             menu = "📋 *Escolha outro produto:*\n"
             for codigo, produto in produtos.items():
                 menu += f"{codigo}. {produto['nome']} - {produto['preco_caixa']} MZN/caixa\n"
             resposta.message(menu)
-        elif mensagem == "não":
+        elif mensagem == "0":
             # Resumo do pedido
             total = sum(p["quantidade"] * p["preco_unitario"] for p in sessao["pedidos"])
             resumo = "📦 *Resumo do Pedido:*\n"
@@ -306,14 +306,14 @@ def whatsapp_bot():
             resumo += f"\n💵 *Total: {total} MZN*"
             
             resposta.message(resumo)
-            resposta.message("Confirma o pedido? (sim/não)")
+            resposta.message("Confirma o pedido?\n  1 - sim\n 0 - não)")
             sessao["step"] = "confirmar"
         else:
-            resposta.message("Responda 'sim' ou 'não'.")
+            resposta.message("Responda '1 - sim' ou '0 - não'.")
     
     # Etapa 5: Confirmação
     elif sessao["step"] == "confirmar":
-        if mensagem == "sim":
+        if mensagem == "1":
             resposta.message("📍 Por favor, envie sua *localização* (use o botão do WhatsApp) ou digite o endereço.")
             sessao["step"] = "localizacao"
         else:
