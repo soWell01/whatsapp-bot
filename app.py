@@ -134,6 +134,9 @@ from datetime import datetime
 
 def notificar_responsavel(pedidos, remetente, endereco):
     try:
+        # Configuração do cliente Twilio
+        client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
+        
         # Formata a mensagem
         total = sum(p["quantidade"] * p["preco_unitario"] for p in pedidos)
         mensagem = f"🚨 *NOVO PEDIDO RECEBIDO* 🚨\n\n"
@@ -145,19 +148,17 @@ def notificar_responsavel(pedidos, remetente, endereco):
             mensagem += f"- {pedido['quantidade']}x {pedido['produto']} ({pedido['sabor']}): {pedido['quantidade'] * pedido['preco_unitario']} MZN\n"
         
         mensagem += f"\n💵 *Total: {total} MZN*"
-        mensagem += f"\n⏱️ Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
         
-        # Envia a mensagem para o número do responsável via sandbox
-        resp = MessagingResponse()
-        resp.message(mensagem)
+        # Envia a notificação
+        message = client.messages.create(
+            body=mensagem,
+            from_='whatsapp:+19123044899',  # Seu número Twilio
+            to=f'whatsapp:{os.getenv("RESPONSAVEL_WHATSAPP")}'
+        )
         
-        # Log simulado (já que não podemos enviar de verdade no sandbox)
-        logger.info(f"SIMULAÇÃO: Notificação enviada ao responsável. Conteúdo:\n{mensagem}")
-        
-        return str(resp)
+        logger.info(f"Notificação enviada ao responsável. SID: {message.sid}")
     except Exception as e:
-        logger.error(f"Falha ao gerar notificação: {str(e)}")
-        return None
+        logger.error(f"Falha ao enviar notificação: {str(e)}")
 
 @app.route('/whatsapp', methods=['POST'])
 def whatsapp_bot():
@@ -334,10 +335,8 @@ def whatsapp_bot():
             ]
             sheet.append_row(linha)
             
-       # Notificação (modo sandbox)
-        notificacao = notificar_responsavel(sessao["pedidos"], remetente, mensagem)
-        if notificacao:
-            logger.info("Notificação simulada com sucesso")
+       # 2. Notifica o responsável (nova linha)
+        notificar_responsavel(sessao["pedidos"], remetente, mensagem)
         
         resposta.message("🍹 *Obrigado pelo seu pedido!* 🚀\nEstamos processando e entraremos em contato em breve.")
         del user_sessions[remetente]  # Limpa a sessão
