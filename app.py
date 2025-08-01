@@ -152,7 +152,7 @@ def notificar_responsavel(pedidos, remetente, endereco):
         # Envia a notificação
         message = client.messages.create(
             body=mensagem,
-            from_='whatsapp:+19123044899',  # Seu número Twilio
+            from_='whatsapp:+12569464998',  # Seu número Twilio
             to=f'whatsapp:{os.getenv("RESPONSAVEL_WHATSAPP")}'
         )
         
