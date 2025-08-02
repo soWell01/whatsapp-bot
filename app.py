@@ -182,7 +182,7 @@ def whatsapp_bot():
         # Mensagem de boas-vindas com imagem (opcional)
         resposta.message(
             "🍹 *Bem-vindo à aplicação de requisição de produtos da Frozy!* �\n"
-            "📄 Catálogo completo: [Baixe aqui](https://github.com/soWell01/pdfsParaPartilha/blob/main/Act%20-%20Cata%CC%81logo%20-%20Produtos%20-%20Yaafico30072025.pdf)\n\n"
+            "📄 Catálogo completo: [Baixe aqui](https://www.dropbox.com/scl/fi/uw3wg39miqk9frzwzgqtk/Cat-logoProdutosFrozy.pdf?rlkey=dq4igxvz3fki0drlowt70r546&st=mnjna9zl&dl=1)\n\n"
         )
         
         # Lista produtos
